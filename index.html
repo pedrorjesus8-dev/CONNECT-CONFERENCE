@@ -15,7 +15,6 @@
     --gray: #2a2a2a;
     --gray-2: #1f1f1f;
     --text: #ffffff;
-    --text-dark: #1a1a1a;
     --muted: rgba(255, 255, 255, 0.75);
     --border: rgba(255, 255, 255, 0.12);
     --radius: 16px;
@@ -468,15 +467,17 @@
     font-size: 0.92rem;
   }
 
-  thead { background: var(--orange); }
-  th { color: var(--black); font-weight: 700; text-transform: uppercase; letter-spacing: 1px; font-size: 0.8rem; }
+  thead { background: var(--black); }
+  th { color: var(--orange); font-weight: 700; text-transform: uppercase; letter-spacing: 1px; font-size: 0.8rem; }
 
   tbody tr {
-    border-top: 1px solid var(--border);
+    border-top: 1px solid rgba(0,0,0,0.15);
     transition: background 0.3s;
+    color: var(--black);
+    background: rgba(255,255,255,0.9);
   }
 
-  tbody tr:hover { background: rgba(247, 92, 30, 0.08); }
+  tbody tr:hover { background: #fff; }
 
   /* FORM */
   .form {
@@ -488,16 +489,16 @@
   }
 
   .form-group { display: flex; flex-direction: column; gap: 8px; }
-  .form-group label { font-size: 0.9rem; color: var(--black); font-weight: 600; }
+  .form-group label { font-size: 0.9rem; color: var(--muted); font-weight: 600; }
 
   .form-group input,
   .form-group select,
   .form-group textarea {
-    background: rgba(255, 255, 255, 0.95);
-    border: 2px solid transparent;
+    background: var(--gray-2);
+    border: 1px solid var(--border);
     border-radius: 12px;
     padding: 14px 16px;
-    color: var(--black);
+    color: var(--text);
     font-family: inherit;
     font-size: 0.95rem;
     transition: border-color 0.3s;
@@ -507,13 +508,17 @@
   .form-group select:focus,
   .form-group textarea:focus {
     outline: none;
-    border-color: var(--black);
+    border-color: var(--orange);
   }
 
-  .form .btn { align-self: flex-start; }
+  .form .btn {
+    background: var(--orange);
+  }
+
+  .form .btn:hover { background: var(--orange-dark); }
 
   .form-msg {
-    color: var(--black);
+    color: var(--orange);
     font-weight: 600;
     font-size: 0.9rem;
     min-height: 20px;
@@ -531,14 +536,22 @@
 
   .footer-content { display: flex; flex-direction: column; gap: 6px; }
 
-  /* REVEAL */
+  /* REVEAL — por padrão VISÍVEL, só anima se JS ativar */
   .reveal {
-    opacity: 0;
-    transform: translateY(30px);
+    opacity: 1;
+    transform: none;
     transition: opacity 0.7s ease, transform 0.7s ease;
   }
 
-  .reveal.active { opacity: 1; transform: translateY(0); }
+  .reveal.pre-anim {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  .reveal.active {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+  }
 
   /* RESPONSIVO */
   @media (max-width: 768px) {
@@ -794,10 +807,10 @@
             </tr>
           </thead>
           <tbody>
-            <tr><td>Dia 1 (10/10)</td><td>Ana</td><td>Lucas</td><td>Pedro</td><td>João</td></tr>
-            <tr><td>Dia 2 (10/10)</td><td>Maria</td><td>Rafael</td><td>Pedro</td><td>João</td></tr>
-            <tr><td>Dia 3 (11/10)</td><td>Ana</td><td>Lucas</td><td>Carlos</td><td>Bia</td></tr>
-            <tr><td>Dia 4 (11/10)</td><td>Maria</td><td>Rafael</td><td>Carlos</td><td>Bia</td></tr>
+            <tr><td>10/10 – Manhã</td><td>Ana</td><td>Lucas</td><td>Pedro</td><td>João</td></tr>
+            <tr><td>10/10 – Noite</td><td>Maria</td><td>Rafael</td><td>Pedro</td><td>João</td></tr>
+            <tr><td>11/10 – Manhã</td><td>Ana</td><td>Lucas</td><td>Carlos</td><td>Bia</td></tr>
+            <tr><td>11/10 – Noite</td><td>Maria</td><td>Rafael</td><td>Carlos</td><td>Bia</td></tr>
           </tbody>
         </table>
       </div>
@@ -875,8 +888,8 @@
 
   // ===== CONTAGEM REGRESSIVA =====
   // Conferência: 10 de outubro de 2026 às 19h
+  // ATENÇÃO: no JS, o mês começa em 0 → Outubro = 9
   const conferenceDate = new Date(2026, 9, 10, 19, 0, 0).getTime();
-  // Mês no JS começa em 0 → Outubro = 9
 
   function updateCountdown() {
     const now = new Date().getTime();
@@ -953,15 +966,4 @@
     document.querySelectorAll('.check-item').forEach((item, i) => {
       state[i] = item.classList.contains('done');
     });
-    localStorage.setItem('checklistConnect', JSON.stringify(state));
-  }
-
-  function updateProgress() {
-    const total = checklistData.length;
-    const done = document.querySelectorAll('.check-item.done').length;
-    const percent = Math.round((done / total) * 100);
-    progressFill.style.width = percent + '%';
-    progressText.textContent = percent + '%';
-  }
-
-  updateProgress
+    localStorage.setItem('checklistConnect',
