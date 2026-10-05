@@ -252,6 +252,43 @@
     color:var(--ink-soft);
     margin:22px 0 10px;
   }
+  .section-title:first-child{margin-top:0;}
+
+  /* ESCALA */
+  .day-label{
+    font-size:18px;
+    font-weight:700;
+    margin:0 0 10px;
+  }
+  .shift-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:12px;
+    margin-bottom:22px;
+  }
+  .shift-card{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:14px;
+    padding:14px 16px;
+  }
+  .shift-time{
+    font-size:15px;
+    font-weight:700;
+    color:var(--orange-deep);
+    margin-bottom:10px;
+    font-family:'Space Grotesk',sans-serif;
+  }
+  .role-row{
+    display:flex;
+    align-items:baseline;
+    gap:8px;
+    font-size:14px;
+    margin-bottom:6px;
+    flex-wrap:wrap;
+  }
+  .role-row:last-child{margin-bottom:0;}
+  .role-row .tag{flex:0 0 auto;}
 
   @media (max-width:480px){
     .stat-card{min-width:100px;}
@@ -284,6 +321,7 @@
 
 <div class="tabs" id="tabs">
   <button class="tabbtn active" data-tab="visao">Visão geral</button>
+  <button class="tabbtn" data-tab="escala">Escala</button>
   <button class="tabbtn" data-tab="pre">Pré-conferência</button>
   <button class="tabbtn" data-tab="dia1">Dia 1 · 10/10</button>
   <button class="tabbtn" data-tab="dia2">Dia 2 · 11/10</button>
@@ -334,6 +372,48 @@
         <div class="item-text">
           <div class="item-title">As etiquetas coloridas indicam o formato: <span class="tag live">tempo real</span> <span class="tag capture">captação</span> <span class="tag feed">feed/reels</span></div>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ESCALA -->
+  <section class="panel" id="panel-escala">
+    <p class="section-title">Cultos</p>
+
+    <p class="day-label">Sábado 10/10</p>
+    <div class="shift-grid">
+      <div class="shift-card">
+        <div class="shift-time">9h</div>
+        <div class="role-row"><span class="tag capture">Fotos</span> Paulo e Maria Velasques</div>
+        <div class="role-row"><span class="tag live">Stories</span> Gustavo &amp; Jonathan</div>
+      </div>
+      <div class="shift-card">
+        <div class="shift-time">18h – 19h</div>
+        <div class="role-row"><span class="tag capture">Fotos</span> Ana e Maria Eduarda</div>
+        <div class="role-row"><span class="tag live">Stories</span> Jonathan e Alessandra</div>
+      </div>
+    </div>
+
+    <p class="day-label">Domingo 11/10</p>
+    <div class="shift-grid">
+      <div class="shift-card">
+        <div class="shift-time">10h</div>
+        <div class="role-row"><span class="tag capture">Fotos</span> Gabi e Kamilly Gomes</div>
+        <div class="role-row"><span class="tag live">Stories</span> Jonathan, Cleyton e Larissa</div>
+      </div>
+      <div class="shift-card">
+        <div class="shift-time">18h</div>
+        <div class="role-row"><span class="tag capture">Fotos</span> Kamilly e Isa</div>
+        <div class="role-row"><span class="tag live">Stories</span> Larissa (loira) &amp; Jonathan</div>
+      </div>
+    </div>
+
+    <p class="section-title">Connect TV</p>
+    <div class="shift-grid">
+      <div class="shift-card">
+        <div class="role-row"><span class="tag capture">Captação</span> Samuel</div>
+        <div class="role-row"><span class="tag live">Live Instagram</span> Pedro</div>
+        <div class="role-row"><span class="tag feed">Jornalista</span> Alexia</div>
       </div>
     </div>
   </section>
